@@ -1,8 +1,5 @@
 import multiprocessing
 import subprocess
-import os
-import signal
-import time
 
 def run_python_script(script_path, *args):
     try:
@@ -24,7 +21,7 @@ def run_python_script(script_path, *args):
 
 if __name__ == "__main__":
     server_path = "green_house_automation/backend/python/app.py"
-    ardupython_interface_path = "green_house_automation/backend/python/ardupython_interface/main.py"
+    ardupython_interface_path = "green_house_automation/backend/python/ardupython_interface/ardupython_interface.py"
 
     try:
         server = multiprocessing.Process(target=run_python_script, args=(server_path,))

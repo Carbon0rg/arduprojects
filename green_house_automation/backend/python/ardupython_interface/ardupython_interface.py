@@ -107,7 +107,7 @@ def start():
     calibrate()
     while True:
         try:
-            #get_data()
+            get_data()
             autowcs.start_tracking()
         except KeyboardInterrupt as e:
             print("exited running process")
