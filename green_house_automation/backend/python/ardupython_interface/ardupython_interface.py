@@ -3,7 +3,6 @@ from time import sleep
 import sqlite3
 from dbupdate import db
 import ttycheck
-import os
 import automated_weather_control_system as awcs
 
 try:
