@@ -1,0 +1,54 @@
+import multiprocessing
+import subprocess
+import os
+import signal
+import time
+
+def run_python_script(script_path, *args):
+    try:
+        process = subprocess.Popen(['python3', script_path, *args], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()  # Get stdout and stderr
+        stdout = stdout.decode() if stdout else "" # Decode, handle None
+        stderr = stderr.decode() if stderr else "" # Decode, handle None
+
+        print(f"Output from {script_path}:\n{stdout}")
+
+        if stderr:  # Only print errors if there are any
+            print(f"Errors from {script_path}:\n{stderr}")
+
+        return stdout  # Or return (stdout, stderr) if you need both
+
+    except FileNotFoundError:
+        print(f"Error: {script_path} not found.")
+        return None
+
+if __name__ == "__main__":
+    server_path = "green_house_automation/backend/python/app.py"
+    ardupython_interface_path = "green_house_automation/backend/python/ardupython_interface/main.py"
+
+    try:
+        server = multiprocessing.Process(target=run_python_script, args=(server_path,))
+        ardupython_interface = multiprocessing.Process(target=run_python_script, args=(ardupython_interface_path,))
+
+        server.start()
+        ardupython_interface.start()
+
+        server.join()
+        ardupython_interface.join()
+
+    except KeyboardInterrupt:
+        print("Quitting...")
+        server.terminate()
+        ardupython_interface.terminate()
+
+        server.join(2)
+        ardupython_interface.join(2)
+
+        if server.is_alive():
+            print("Server did not terminate gracefully. Killing.")
+            server.kill()
+        if ardupython_interface.is_alive():
+            print("Interface did not terminate gracefully. Killing.")
+            ardupython_interface.kill()
+
+    print("Processes terminated.")

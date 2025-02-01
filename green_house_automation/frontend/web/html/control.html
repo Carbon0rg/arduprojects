@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/control.css">
+    <title>Document</title>
+
+</head>
+<body>
+    <header class="header">
+        <img src="http://192.168.1.40:5500/favicon.svg" alt="logo" class="header-img">
+        <h1 id="header-title">greencontrol.corp</h1>
+        <div class="header-container">
+            <button class="control" onclick="redirect2controls('http://192.168.1.40:5500/home')" >Home</button>
+        </div>
+    </header>
+    <div class="root">
+        <div class="others">
+            <h1 class="others-title">
+                Alerts
+            </h1>
+            <span id="firealert">Fire</span>
+            <span id="intrusionalert">Intrusion</span>
+            <span id="gasleak">Gas Leak</span>
+
+        </div>
+        <div class="temp">
+            <h1 class="box-title">Temperature</h1>
+            <div class="temp_box">
+                <button class="button-controls" id="increase_temp">+</button>
+                <input class="text-box" type="number" id="temp_value" value="35" min="15" max="45"> 
+                <button class="button-controls" id="decrease_temp">-</button>
+                <button class="button-controls submit" for="humid_value" onclick="submit()">OK</button>
+            </div>
+        </div>
+        <div class="temp">
+            <h1 class="box-title">Humidity</h1>
+            <div class="temp_box">
+                <button type="button" class="button-controls" id="increase_humid" for="humid_value">+</button>
+                <input class="text-box" type="number" id="humid_value" value=35 min="0" max="100"> 
+                <button class="button-controls" id="decrease_humid" for="humid_value">-</button>
+                <button class="button-controls submit" for="humid_value" onclick="submit()">OK</button>
+            </div>
+        </div>
+        <div class="temp">
+            <h1 class="box-title">Soil Moisture</h1>
+            <div class="temp_box">
+                <button class="button-controls" id="increase_moisture">+</button>
+                <input class="text-box" type="number" id="moisture_value" value="35" min="0" max="100"> 
+                <button class="button-controls"  id="decrease_moisture">-</button>
+                <button class="button-controls submit" for="moisture_value" onclick="submit()">OK</button>
+            </div>
+        </div>
+        <div class="temp">
+            <h1 class="box-title">Light</h1>
+            <div class="temp_box">
+                <button class="button-controls" id="increase_light">+</button>
+                <input class="text-box" type="number" id="light_value" value="35" min="0" max="100"> 
+                <button class="button-controls"  id="decrease_light">-</button>
+                <button class="button-controls submit" for="humid_value" onclick="submit()">OK</button>
+            </div>
+        </div>
+        
+    </div>
+    <footer class="footer">
+        <span></span>
+    </footer>
+
+    <script src="../js/control.js"></script>
+</body>
+</html>
