@@ -5,6 +5,7 @@ from dbupdate import db
 import ttycheck
 import automated_weather_control_system as awcs
 import sys
+import conf
 
 try:
     autowcs = awcs.awcs()
@@ -12,7 +13,7 @@ except Exception as e:
     print("Error: ", e)
 
 try:
-    arduino = serial.Serial(port=ttycheck.usb_path(), baudrate=9600,timeout=1)
+    arduino = serial.Serial(port=ttycheck.usb_path(), baudrate=conf.baudrate,timeout=1)
 
 except Exception as e:
     print("Error: ", e)

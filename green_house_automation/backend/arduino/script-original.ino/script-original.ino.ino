@@ -4,6 +4,7 @@
 // Define pins
 #define DHTPIN 7     // Pin connected to DHT sensor
 #define DHTTYPE DHT11
+#define BAUDRATE 115200
 const int moist_pin = A0;
 const int light_pin = A1;
 const int fire_pin = 4;
@@ -26,7 +27,7 @@ int humidity = 0;
 DHT dht(DHTPIN, DHT11);
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(BAUDRATE);
   dht.begin();
   //Serial.setTimeout(100); // Commented out, generally not needed
   pinMode(fire_pin, INPUT);

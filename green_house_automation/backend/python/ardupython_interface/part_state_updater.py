@@ -3,9 +3,10 @@ import time
 from datetime import datetime as dt
 import serial
 import ttycheck
+import conf
 
 
-arduino = serial.Serial(port=ttycheck.usb_path(), baudrate=9600,timeout=1)
+arduino = serial.Serial(port=ttycheck.usb_path(), baudrate=conf.baudrate,timeout=1)
 
 databaseobj = db()
 

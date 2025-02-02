@@ -1,9 +1,10 @@
 import sqlite3
 import sys
+import conf
 class db:
     def connect(self):
         try:
-            conn = sqlite3.connect('green_house_automation/backend/db/data.db')
+            conn = sqlite3.connect(conf.db)
             conn.row_factory = sqlite3.Row
             #print('Connected to database')
             return conn
