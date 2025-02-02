@@ -1,7 +1,7 @@
 import sqlite3
 
 def get_db_connection():
-    conn = sqlite3.connect('/home/jkschool/Niranjan/projects/arduprojects/green_house_automation/backend/db/data.db')
+    conn = sqlite3.connect('green_house_automation/backend/db/testdb.db')
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -33,9 +33,24 @@ def create_table():
     #gas_leak
     conn.execute('INSERT INTO data (key, remote, current) VALUES (?,?,?)', 
                     ('gas_leak', "0", "0"))
+    #gas_leak
+    conn.execute('INSERT INTO data (key, remote, current) VALUES (?,?,?)', 
+                    ('pump_state', "0", "0"))
+    #gas_leak
+    conn.execute('INSERT INTO data (key, remote, current) VALUES (?,?,?)', 
+                    ('cooler_state', "0", "0"))
+    #gas_leak
+    conn.execute('INSERT INTO data (key, remote, current) VALUES (?,?,?)', 
+                    ('cooler_fan_state', "0", "0"))
+    #gas_leak
+    conn.execute('INSERT INTO data (key, remote, current) VALUES (?,?,?)', 
+                    ('light_state', "0", "0"))
+    #gas_leak
+    conn.execute('INSERT INTO data (key, remote, current) VALUES (?,?,?)', 
+                    ('heater_fan_state', "0", "0"))
     conn.commit()
     conn.close()
 
 
 create_table()
-
+print("FINISHED")
