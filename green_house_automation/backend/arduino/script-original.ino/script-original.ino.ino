@@ -26,7 +26,7 @@ int humidity = 0;
 DHT dht(DHTPIN, DHT11);
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   dht.begin();
   //Serial.setTimeout(100); // Commented out, generally not needed
   pinMode(fire_pin, INPUT);

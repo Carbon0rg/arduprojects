@@ -5,7 +5,7 @@ import serial
 import ttycheck
 
 
-arduino = serial.Serial(port=ttycheck.usb_path(), baudrate=115200,timeout=1)
+arduino = serial.Serial(port=ttycheck.usb_path(), baudrate=9600,timeout=1)
 
 databaseobj = db()
 
@@ -78,15 +78,18 @@ class parts:
         hour = time_now.hour
         light_state = write_read("16")
         if light_state == 1:
-            if hour > 20:
-                databaseobj.db_update_part_state(light_state = 0)
-                light_is_on = write_read("0")
-                print("light state: ",light_is_on)
+            if level != 0:
+                if hour > 20:
+                    databaseobj.db_update_part_state(light_state = 0)
+                    light_is_on = write_read("0")
+                    print("light state: ",light_is_on)
             
+                else:
+                    databaseobj.db_update_part_state(light_state = str(light_state))
+                    light_is_on = write_read(str(level))
+                    print("light state: ",light_is_on)
             else:
-                databaseobj.db_update_part_state(light_state = str(light_state))
-                light_is_on = write_read(str(level))
-                print("light state: ",light_is_on)
+                databaseobj.db_update_part_state(light_state = 0)
         else:
             print("Arduino Responded with errors")
 

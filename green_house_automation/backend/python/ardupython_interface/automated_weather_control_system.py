@@ -124,9 +124,15 @@ class awcs:
         self.pu.calibrate()
     
     def start_tracking(self):
+
         print("Starting")
         time.sleep(1.5)
         awcs.track_humidity(self)
         awcs.track_temperature(self)
         awcs.track_soil_moisture(self)
         awcs.track_light_level(self)
+
+# def check_sensors():
+#     awcs1 = awcs()
+#     awcs1.calibrate_devices()
+#     awcs1.start_tracking()

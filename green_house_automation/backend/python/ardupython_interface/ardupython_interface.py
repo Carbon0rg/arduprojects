@@ -12,7 +12,7 @@ except Exception as e:
     print("Error: ", e)
 
 try:
-    arduino = serial.Serial(port=ttycheck.usb_path(), baudrate=115200,timeout=1)
+    arduino = serial.Serial(port=ttycheck.usb_path(), baudrate=9600,timeout=1)
 
 except Exception as e:
     print("Error: ", e)
