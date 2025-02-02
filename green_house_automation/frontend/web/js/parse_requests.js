@@ -115,21 +115,21 @@ function update_alerts(data){
   let gas_leak = data.gas_leak;
   let gas_leak_alert = document.getElementById("gasleak");
 
-  if(fire != 0){
+  if(fire != 1){
     fire_alert.style.backgroundColor = "#fa5252";
   }
   else{
     fire_alert.style.backgroundColor = "#8cfc42";
   }
 
-  if(intrusion != 0){
+  if(intrusion != 1){
     intrusion_alert.style.backgroundColor = "#fa5252";
   }
   else{
     intrusion_alert.style.backgroundColor = "#8cfc42";
   }
 
-  if(gas_leak != 0){
+  if(gas_leak != 1){
     gas_leak_alert.style.backgroundColor = "#fa5252";
   }
   else{

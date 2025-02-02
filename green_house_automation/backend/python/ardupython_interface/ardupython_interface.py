@@ -4,6 +4,7 @@ import sqlite3
 from dbupdate import db
 import ttycheck
 import automated_weather_control_system as awcs
+import sys
 
 try:
     autowcs = awcs.awcs()
@@ -11,7 +12,7 @@ except Exception as e:
     print("Error: ", e)
 
 try:
-    arduino = serial.Serial(port=ttycheck.usb_path(), baudrate=9600,timeout=1)
+    arduino = serial.Serial(port=ttycheck.usb_path(), baudrate=115200,timeout=1)
 
 except Exception as e:
     print("Error: ", e)
@@ -19,7 +20,7 @@ except Exception as e:
 data_list = list()
 
         
-
+database = db()
 
 def map_value(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
@@ -36,26 +37,30 @@ def write_read(x):
 
 
 def calibrate():
-    print("\033[31m\033[1mcalibrating")
+    try:
+        print("\033[31m\033[1mcalibrating")
 
-    write_read('2')
+        write_read('2')
 
-    write_read('2')
+        write_read('2')
 
-    write_read('3')
+        write_read('3')
 
-    write_read('4')
+        write_read('4')
 
-    write_read('5')
+        write_read('5')
 
-    write_read('6')
+        write_read('6')
 
-    write_read('7')
+        write_read('7')
 
-    autowcs.calibrate_devices()
+        autowcs.calibrate_devices()
 
+        
+        print("\033[32m\033[1mfinished Calibrating\033[33m\033[1m")
     
-    print("\033[32m\033[1mfinished Calibrating\033[33m\033[1m")
+    except KeyboardInterrupt:
+        sys.exit("\nSuccessfully Exited!")
 
 
 def get_data():
@@ -70,13 +75,13 @@ def get_data():
 
     soil_moisture = write_read("3")
     print("soil moisture sensor OUT: ", soil_moisture)
-    soil_moisture_perc = round(map_value(1005 - soil_moisture, 0, 1005, 0, 100))
+    soil_moisture_perc = round(map_value(1024 - soil_moisture, 0, 1024, 0, 100))
     data_list.append(soil_moisture_perc)
     print("soil_moisture: ", soil_moisture_perc)
 
     light = write_read("4")
     print("light sensor OUT: ", light)
-    light_perc = round(map_value(1015-light, 0, 1015, 0, 255))
+    light_perc = round(map_value(1024 - light, 0, 1024, 0, 255))
     data_list.append(light_perc)
     print("light: ", light_perc)
 
@@ -93,7 +98,7 @@ def get_data():
     print("gas_leak: ", bool(1-gas_leak))
     
     try:
-        db.update(*data_list)
+        database.update(*data_list)
         print('DataBase Updated Successfully')
     except sqlite3.Error as e:
         print("SQlite Database connection/updation Error: ", e)
@@ -118,5 +123,5 @@ def start():
 
 
 
-start()
-    
+
+start()    

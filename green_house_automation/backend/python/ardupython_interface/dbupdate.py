@@ -1,7 +1,7 @@
 import sqlite3
 import sys
 class db:
-    def connect():
+    def connect(self):
         try:
             conn = sqlite3.connect('green_house_automation/backend/db/data.db')
             conn.row_factory = sqlite3.Row
@@ -12,8 +12,8 @@ class db:
             print("Error: ", error)
             sys.exit()
 
-    def update(new_temperature :int, new_humidity :int, new_light :int, new_moisture :int, new_fire :int, new_intrusion :int, new_gas_leak :int):
-        conn = db.connect()
+    def update(self, new_temperature :int, new_humidity :int, new_moisture :int,new_light :int, new_fire :int, new_intrusion :int, new_gas_leak :int):
+        conn = self.connect()
 
         # Temperature
 
@@ -47,27 +47,29 @@ class db:
         conn.commit()
         conn.close()
 
-    def db_update_part_state(fan_state :int = None, pump_state :int = None, cooler_state :int = None, light_state :int = None):
-        
-        conn = db.connect()
-        # Fan_State
-        
-        if fan_state is not None:
-            conn.execute('UPDATE data SET current =? WHERE key =?', (fan_state, 'fan_state'))
+    def db_update_part_state(self, heater_fan_state: int = None, pump_state: int = None, cooler_state: int = None, light_state: int = None, cooler_fan_state :int = None):
+        conn = self.connect()
 
-        #pump_state
+        # Fan State
+        if heater_fan_state is not None:
+            conn.execute('UPDATE data SET current = ? WHERE key = ?', (str(heater_fan_state), 'heater_fan_state'))
+
+        if cooler_fan_state is not None:
+            conn.execute('UPDATE data SET current = ? WHERE key = ?', (str(cooler_fan_state), 'cooler_fan_state'))
+
+        # Pump State
         if pump_state is not None:
-            conn.execute('UPDATE data SET current =? WHERE key =?', (pump_state, 'pump_state'))
+            conn.execute('UPDATE data SET current = ? WHERE key = ?', (str(pump_state), 'pump_state'))
 
-        #cooler_state
+        # Cooler State
         if cooler_state is not None:
-            conn.execute('UPDATE data SET current =? WHERE key =?', (cooler_state, 'cooler_state'))
-        
-        if cooler_state is not None:
-            conn.execute('UPDATE data SET current =? WHERE key =?', (light_state, 'light_state'))
+            conn.execute('UPDATE data SET current = ? WHERE key = ?', (str(cooler_state), 'cooler_state'))
+
+        # Light State
+        if light_state is not None:
+            conn.execute('UPDATE data SET current = ? WHERE key = ?', (str(light_state), 'light_state'))
 
         conn.commit()
         conn.close()
 
         return 0
-

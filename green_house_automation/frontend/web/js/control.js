@@ -80,7 +80,7 @@ async function submit() {
       try {
         const jsonData = await response.json();
         console.log(jsonData);
-        alert("Updated")
+        alert("Updated");
       } catch (error) {
         console.error('Error parsing JSON:', error);
       }
@@ -125,21 +125,21 @@ function update_alerts(data){
   let gas_leak = data.gas_leak;
   let gas_leak_alert = document.getElementById("gasleak");
 
-  if(fire != 0){
+  if(fire != 1){
     fire_alert.style.backgroundColor = "#fa5252";
   }
   else{
     fire_alert.style.backgroundColor = "#8cfc42";
   }
 
-  if(intrusion != 0){
+  if(intrusion != 1){
     intrusion_alert.style.backgroundColor = "#fa5252";
   }
   else{
     intrusion_alert.style.backgroundColor = "#8cfc42";
   }
 
-  if(gas_leak != 0){
+  if(gas_leak != 1){
     gas_leak_alert.style.backgroundColor = "#fa5252";
   }
   else{
@@ -147,8 +147,68 @@ function update_alerts(data){
   }
 }
 
+function update_state_spans(data){
+  let heater_fan_state = data.heater_fan_state;
+  let heater_fan = document.getElementById("heater-fan");
+  let cooler_fan_state = data.cooler_fan_state;
+  let cooler_fan = document.getElementById("cooler-fan");
+  let cooler_state = data.cooler_state;
+  let cooler = document.getElementById("temperature-span");
+  let pump_state = data.pump_state;
+  let pump = document.getElementById("pump-span");
+  let light_state = data.light_state;
+  let light_span = document.getElementById("light-span");
+
+  if(heater_fan_state != 1){
+    heater_fan.style.backgroundColor = "#fa5252";
+  }
+  else{
+    heater_fan.style.backgroundColor = "#8cfc42";
+  }
+
+  if(cooler_fan_state != 1){
+    cooler_fan.style.backgroundColor = "#fa5252";
+  }
+  else{
+    cooler_fan.style.backgroundColor = "#8cfc42";
+  }
+
+  if(cooler_state != 1){
+    cooler.style.backgroundColor = "#fa5252";
+  }
+  else{
+    cooler.style.backgroundColor = "#8cfc42";
+  }
+  if(pump_state != 1){
+    pump.style.backgroundColor = "#fa5252";
+  }
+  else{
+    pump.style.backgroundColor = "#8cfc42";
+  }
+  if(light_state != 1){
+    light_span.style.backgroundColor = "#fa5252";
+  }
+  else{
+    light_span.style.backgroundColor = "#8cfc42";
+  }
+}
 
 async function request_update_data(){
+  let response = await fetch(`${host}get_data`);
+  let data = await response.json();
+  console.log(data);
+  temperature_set = data.temperature_set;
+  humidity_set = data.humidity_set;
+  soil_moisture_set = data.soil_moisture_set;
+  light_set = data.light_set;
+
+  //update_data(temperature_set, humidity_set, soil_moisture_set, light_set);
+  update_state_spans(data);
+  update_alerts(data);
+}
+
+
+async function request_update_data_only(){
   let response = await fetch(`${host}get_data`);
   let data = await response.json();
   console.log(data);
@@ -161,6 +221,11 @@ async function request_update_data(){
   update_alerts(data);
 }
 
+
+
+
 const body = document.body;
 
 body.addEventListener('load', request_update_data());
+body.addEventListener('load', request_update_data_only());
+setInterval(request_update_data, 5000);

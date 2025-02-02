@@ -106,10 +106,25 @@ def get_data():
     #gas_leak
     cursor.execute("SELECT current FROM data WHERE key = 'gas_leak'")
     gas_leak = cursor.fetchall()
+    #pump
+    cursor.execute("SELECT current FROM data WHERE key = 'pump_state'")
+    pump_state = cursor.fetchall()
+    #heater fan
+    cursor.execute("SELECT current FROM data WHERE key = 'heater_fan_state'")
+    heater_fan_state = cursor.fetchall()
+    #cooler fan
+    cursor.execute("SELECT current FROM data WHERE key = 'cooler_fan_state'")
+    cooler_fan_state = cursor.fetchall()
+    #cooler
+    cursor.execute("SELECT current FROM data WHERE key = 'cooler_state'")
+    cooler_state = cursor.fetchall()
+    #light
+    cursor.execute("SELECT current FROM data WHERE key = 'light_state'")
+    light_state = cursor.fetchall()
 
 
     # Fetch the query result
-    unparsed_data = {'temperature': int(temperature[0][2]), 'humidity': int(humidity[0][2]), 'light': int(light[0][2]), 'soil_moisture': int(soil_moisture[0][2]),'temperature_set': int(temperature[0][1]), 'humidity_set': int(humidity[0][1]), 'light_set': int(light[0][1]), 'soil_moisture_set': int(soil_moisture[0][1]), 'fire': int(fire[0][0]), 'intrusion': int(intrusion[0][0]), 'gas_leak': int(gas_leak[0][0])}
+    unparsed_data = {'temperature': int(temperature[0][2]), 'humidity': int(humidity[0][2]), 'light': int(light[0][2]), 'soil_moisture': int(soil_moisture[0][2]),'temperature_set': int(temperature[0][1]), 'humidity_set': int(humidity[0][1]), 'light_set': int(light[0][1]), 'soil_moisture_set': int(soil_moisture[0][1]), 'fire': int(fire[0][0]), 'intrusion': int(intrusion[0][0]), 'gas_leak': int(gas_leak[0][0]), 'pump_state': int(pump_state[0][0]), 'cooler_fan_state': int(cooler_fan_state[0][0]), 'heater_fan_state': int(heater_fan_state[0][0]), 'cooler_state': int(cooler_state[0][0]), 'light_state': int(light_state[0][0])}
     json_result = json.dumps(unparsed_data)
     print(json_result)
     return json_result

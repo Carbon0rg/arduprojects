@@ -24,10 +24,11 @@ class awcs:
     def __init__(self):
         self.pu = psu.parts()
         try:
-            self.conn = dbupdate.db.connect()
+            databaseobj = dbupdate.db()
+            self.conn = databaseobj.connect()
             self.cursor = self.conn.cursor()
         except Exception as e:
-            pass
+            print("Error: ", e)
         #self.pu.calibrate()
 
     

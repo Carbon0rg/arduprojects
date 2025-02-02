@@ -1,4 +1,4 @@
-# **ARDUPYTHON INTERFACE BY NIRANJAN**
+# **ARDUPYTHON INTERFACE**
 
 ## **Serial Commands**
 
