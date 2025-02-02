@@ -1,2 +1,2 @@
 baudrate = 115200
-db = "green_house_automation/backend/db/data.db"
+db = "/home/jkschool/Niranjan/projects/arduprojects/green_house_automation/backend/db/data.db"
