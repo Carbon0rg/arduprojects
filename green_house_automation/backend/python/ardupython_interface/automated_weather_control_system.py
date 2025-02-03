@@ -1,6 +1,7 @@
 import dbupdate
 import part_state_updater as psu
 import time
+import sys
 
 """
 SNIPPETS
@@ -131,6 +132,14 @@ class awcs:
         awcs.track_temperature(self)
         awcs.track_soil_moisture(self)
         awcs.track_light_level(self)
+
+    def stop_all(self):
+        self.pu.light_control(0)
+        self.pu.pump(0)
+        self.pu.cooler_fan(0)
+        self.pu.heater_fan(0)
+        self.pu.temp_control(0)
+        sys.exit("Exited Successfully")
 
 # def check_sensors():
 #     awcs1 = awcs()

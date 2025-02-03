@@ -22,8 +22,10 @@ def run_python_script(script_path, *args):
         return None
 
 if __name__ == "__main__":
-    server_path = "../backend/python/app.py"
-    ardupython_interface_path = "../backend/python/ardupython_interface/ardupython_interface.py"
+    # server_path = "../backend/python/app.py"
+    # ardupython_interface_path = "../backend/python/ardupython_interface/ardupython_interface.py"
+    server_path = "green_house_automation/backend/python/app.py"
+    ardupython_interface_path = "green_house_automation/backend/python/ardupython_interface/ardupython_interface.py"
 
     try:
         server = multiprocessing.Process(target=run_python_script, args=(server_path,))
@@ -31,6 +33,10 @@ if __name__ == "__main__":
 
         server.start()
         ardupython_interface.start()
+        print("Server and Ardupython interface started")
+        print('''Scripts Are Running
+              VISIT http://192.168.1.40:5500/home for the USER INTERFACE
+              ''')
 
         server.join()
         ardupython_interface.join()
